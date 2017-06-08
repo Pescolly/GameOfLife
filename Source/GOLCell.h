@@ -24,10 +24,14 @@ private:
 
 	bool alive = false;
 
+	void countNeighbors();
+
+
 public:
 	GOLCell(int xx, int yy, int ww, int hh);
 //	~GOLCell();
-	void countNeighbors();
+	void setNeighbors(GOLCell *cells[8]);
+	void setAlive();
 	bool isAlive();
 };
 

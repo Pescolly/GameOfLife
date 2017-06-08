@@ -17,7 +17,7 @@
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
-class MainContentComponent   : public Component
+class MainContentComponent : public Component, private Timer
 {
 public:
     //==============================================================================
@@ -28,7 +28,10 @@ public:
     void resized() override;
 
 private:
-    //==============================================================================
+	void timerCallback() override;
+	GOLCell cells[80][00];
+
+	//==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
 };
 

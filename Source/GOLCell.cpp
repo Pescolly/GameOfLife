@@ -40,10 +40,28 @@ void GOLCell::countNeighbors()
 
 bool GOLCell::isAlive()
 {
+	this->countNeighbors();
 	return this->alive;
 }
 
 GOLCell::GOLCell(int xx, int yy, int ww, int hh) : Rectangle(xx, yy, ww, hh)
 {
 
+}
+
+void GOLCell::setNeighbors(GOLCell *cells[8])
+{
+	neighbor0 = cells[0];
+	neighbor1 = cells[1];
+	neighbor2 = cells[2];
+	neighbor3 = cells[3];
+	neighbor4 = cells[4];
+	neighbor5 = cells[5];
+	neighbor6 = cells[6];
+	neighbor7 = cells[7];
+}
+
+void GOLCell::setAlive()
+{
+	alive = true;
 }
