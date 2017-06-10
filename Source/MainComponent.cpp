@@ -13,7 +13,7 @@
 MainContentComponent::MainContentComponent()
 {
     setSize (800, 800);
-	this->startTimer(1000);
+	this->startTimer(3000);
 
 	//setup cells
 	for (int i = 0; i < 80; i++)
@@ -54,12 +54,7 @@ MainContentComponent::MainContentComponent()
 
 			cells[i][j]->setNeighbors(tempCellArr);
 		}
-	}
-
-	cells[0][0]->setAlive();
-	cells[0][1]->setAlive();
-	cells[0][2]->setAlive();
-
+	}	
 }
 
 MainContentComponent::~MainContentComponent() {}
@@ -73,22 +68,55 @@ void MainContentComponent::timerCallback()
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
 void MainContentComponent::paint (Graphics& g)
 {
-	std::cout << "painting" << std::endl;
-    g.fillAll (Colour (0xff001F36));
-	for (int i = 0; i < 80; i++)
+	g.fillAll (Colour (0xff001F36));
+	
+	if (firstRun)
 	{
-		for (int j = 0; j < 80; j++)
+		std::cout <<"seeding life" << std::endl;
+		g.setColour(Colours::greenyellow);
+		cells[3][0]->setAlive(); g.fillRect((Rectangle<int>)*cells[3][0]);
+		cells[3][1]->setAlive(); g.fillRect((Rectangle<int>)*cells[3][1]);
+		cells[3][2]->setAlive(); g.fillRect((Rectangle<int>)*cells[3][2]);
+		cells[4][0]->setAlive(); g.fillRect((Rectangle<int>)*cells[4][0]);
+		cells[5][0]->setAlive(); g.fillRect((Rectangle<int>)*cells[5][0]);
+		cells[6][0]->setAlive(); g.fillRect((Rectangle<int>)*cells[6][0]);
+		firstRun = false;
+	}
+	else
+	{
+		std::cout << "running game" << std::endl;
+		// run game
+		for (int i = 0; i < 80; i++)
 		{
-			if (cells[i][j]->isAlive()) g.setColour(Colours::greenyellow);
-			else g.setColour(Colours::black);
-			Rectangle<int> cellColorShading = (Rectangle<int>)*cells[i][j];
-			g.fillRect(cellColorShading);
+			for (int j = 0; j < 80; j++)
+			{
+				if (cells[i][j]->isAlive())
+				{ std::cout << i << j << " is alive" << std::endl; g.setColour(Colours::greenyellow); }
+				else g.setColour(Colours::black);
+				g.fillRect((Rectangle<int>)*cells[i][j]);
+			}
 		}
 	}
+	
+	if (mouseRespond)
+	{
+		g.setColour(Colours::greenyellow);
+		g.fillRect((Rectangle<int>)*cells[(int)pointToDraw.x/10][(int)pointToDraw.y/10]);
+		mouseRespond = false;
+	}
+	
 }
+
+void MainContentComponent::mouseDown(const MouseEvent &event)
+{
+	std::cout << "Draw position: " << event.position.x << " " << event.position.y << std::endl;
+	mouseRespond = true;
+	pointToDraw.setXY(event.position.x, event.position.y);
+	repaint();
+}
+
+
 #pragma clang diagnostic pop
-
-
 
 void MainContentComponent::resized()
 {

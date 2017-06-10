@@ -44,10 +44,7 @@ bool GOLCell::isAlive()
 	return this->alive;
 }
 
-GOLCell::GOLCell(int xx, int yy, int ww, int hh) : Rectangle<int>(xx, yy, ww, hh)
-{
-	std::cout << "initialized" << std::endl;
-}
+GOLCell::GOLCell(int xx, int yy, int ww, int hh) : Rectangle<int>(xx, yy, ww, hh) {}
 
 void GOLCell::setNeighbors(GOLCell *cells[8])
 {
