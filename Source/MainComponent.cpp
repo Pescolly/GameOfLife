@@ -20,8 +20,7 @@ MainContentComponent::MainContentComponent()
 	{
 		for (int j = 0; j < 80; j++)
 		{
-			GOLCell cell(i*10,j*10,10,10);
-			cells[i][j] = cell;
+			cells[i][j] = new GOLCell(i*10,j*10,10,10);
 		}
 	}
 
@@ -32,25 +31,34 @@ MainContentComponent::MainContentComponent()
 			//create temp array to pass into neighbor assignment
 			//cells go clockwise around current
 			GOLCell *tempCellArr[8];
-			if (i-1 >= 0 && j-1 >= 0) tempCellArr[0] = &cells[i-1][j-1];
-			if (i-1 >= 0) tempCellArr[1] = &cells[i-1][j];
-			if (i-1 >= 0 && j+1 < 79) tempCellArr[2] = &cells[i-1][j+1];
+			if (i-1 >= 0 && j-1 >= 0) { tempCellArr[0] = cells[i-1][j-1]; }
+			else { tempCellArr[0] = NULL; }
 
-			if (j+1 < 79) tempCellArr[3] = &cells[i][j+1];
-			if (i+1 < 79 && j+1 < 79) tempCellArr[4] = &cells[i+1][j+1];
-			if (i+1 < 79) tempCellArr[5] = &cells[i+1][j];
+			if (i-1 >= 0) tempCellArr[1] = cells[i-1][j];
+			else { tempCellArr[1] = NULL; }
+			if (i-1 >= 0 && j+1 < 79) tempCellArr[2] = cells[i-1][j+1];
+			else { tempCellArr[2] = NULL; }
 
-			if (i+1 < 79 && j-1 >= 0) tempCellArr[6] = &cells[i+1][j-1];
-			if (j-1 >= 0) tempCellArr[7] = &cells[i][j-1];
+			if (j+1 < 79) tempCellArr[3] = cells[i][j+1];
+			else { tempCellArr[3] = NULL; }
+			if (i+1 < 79 && j+1 < 79) tempCellArr[4] = cells[i+1][j+1];
+			else { tempCellArr[4] = NULL; }
+			if (i+1 < 79) tempCellArr[5] = cells[i+1][j];
+			else { tempCellArr[5] = NULL; }
+
+			if (i+1 < 79 && j-1 >= 0) tempCellArr[6] = cells[i+1][j-1];
+			else { tempCellArr[6] = NULL; }
+			if (j-1 >= 0) tempCellArr[7] = cells[i][j-1];
+			else { tempCellArr[7] = NULL; }
 
 
-			cells[i][j].setNeighbors(tempCellArr);
+			cells[i][j]->setNeighbors(tempCellArr);
 		}
 	}
 
-	cells[0][0].setAlive();
-	cells[0][1].setAlive();
-	cells[0][2].setAlive();
+	cells[0][0]->setAlive();
+	cells[0][1]->setAlive();
+	cells[0][2]->setAlive();
 
 }
 
@@ -71,9 +79,9 @@ void MainContentComponent::paint (Graphics& g)
 	{
 		for (int j = 0; j < 80; j++)
 		{
-			if (cells[i][j].isAlive()) g.setColour(Colours::greenyellow);
+			if (cells[i][j]->isAlive()) g.setColour(Colours::greenyellow);
 			else g.setColour(Colours::black);
-			Rectangle<int> cellColorShading = (Rectangle<int>)cells[i][j];
+			Rectangle<int> cellColorShading = (Rectangle<int>)*cells[i][j];
 			g.fillRect(cellColorShading);
 		}
 	}

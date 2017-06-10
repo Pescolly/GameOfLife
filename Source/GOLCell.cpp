@@ -16,14 +16,14 @@ Rules:
 void GOLCell::countNeighbors()
 {
 	int neighborCount = 0;
-	if (neighbor0->alive) neighborCount++;
-	if (neighbor1->alive) neighborCount++;
-	if (neighbor2->alive) neighborCount++;
-	if (neighbor3->alive) neighborCount++;
-	if (neighbor4->alive) neighborCount++;
-	if (neighbor5->alive) neighborCount++;
-	if (neighbor6->alive) neighborCount++;
-	if (neighbor7->alive) neighborCount++;
+	if (neighbor0) { if (neighbor0->alive) { neighborCount++; } }
+	if (neighbor1) { if (neighbor1->alive) { neighborCount++; } }
+	if (neighbor2) { if (neighbor2->alive) { neighborCount++; } }
+	if (neighbor3) { if (neighbor3->alive) { neighborCount++; } }
+	if (neighbor4) { if (neighbor4->alive) { neighborCount++; } }
+	if (neighbor5) { if (neighbor5->alive) { neighborCount++; } }
+	if (neighbor6) { if (neighbor6->alive) { neighborCount++; } }
+	if (neighbor7) { if (neighbor7->alive) { neighborCount++; } }
 
 	if (alive)
 	{
@@ -44,9 +44,9 @@ bool GOLCell::isAlive()
 	return this->alive;
 }
 
-GOLCell::GOLCell(int xx, int yy, int ww, int hh) : Rectangle(xx, yy, ww, hh)
+GOLCell::GOLCell(int xx, int yy, int ww, int hh) : Rectangle<int>(xx, yy, ww, hh)
 {
-
+	std::cout << "initialized" << std::endl;
 }
 
 void GOLCell::setNeighbors(GOLCell *cells[8])

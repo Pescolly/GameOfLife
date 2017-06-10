@@ -29,7 +29,7 @@ public:
 
 private:
 	void timerCallback() override;
-	GOLCell cells[80][00];
+	GOLCell *cells[80][80];
 
 	//==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
