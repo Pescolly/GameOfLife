@@ -25,14 +25,16 @@ public:
     ~MainContentComponent();
 
     void paint (Graphics&) override;
-    void resized() override;
-	void mouseDown(const MouseEvent & 	event) override;
+    void resized () override;
+	void mouseDown (const MouseEvent &event) override;
+	void mouseDrag (const MouseEvent &event) override;
 
 private:
 	void timerCallback() override;
 	GOLCell *cells[80][80];
 	bool firstRun = true;
 	bool mouseRespond = false;
+	bool mouseDragOccuring = false;
 	Point<float> pointToDraw;
 
 	//==============================================================================
