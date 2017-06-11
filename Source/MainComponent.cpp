@@ -68,22 +68,22 @@ void MainContentComponent::timerCallback()
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
 void MainContentComponent::paint (Graphics& g)
 {
-	if (mouseDragOccuring)
-	{
-		g.setColour(Colours::greenyellow);
-		GOLCell *cell = cells[(int)pointToDraw.x/10][(int)pointToDraw.y/10];
-		cell->setAlive();
-		g.fillRect((Rectangle<int>)*cell);
-		mouseDragOccuring = false;
-		return;
-	}
-
 	if (mouseRespond)
 	{
 		g.setColour(Colours::greenyellow);
 		GOLCell *cell = cells[(int)pointToDraw.x/10][(int)pointToDraw.y/10];
 		cell->setAlive();
-		g.fillRect((Rectangle<int>)*cell);
+		for (int i = 0; i < 80; i++)
+		{
+			for (int j = 0; j < 80; j++)
+			{
+				if (cells[i][j]->alive)
+				{ g.setColour(Colours::greenyellow); }
+				else g.setColour(Colour(0xff001F36));
+				g.fillRect((Rectangle<int>)*cells[i][j]);
+			}
+		}
+
 		mouseRespond = false;
 		return;
 	}
@@ -95,7 +95,7 @@ void MainContentComponent::paint (Graphics& g)
 		for (int j = 0; j < 80; j++)
 		{
 			if (cells[i][j]->isAlive())
-			{ std::cout << i << j << " is alive" << std::endl; g.setColour(Colours::greenyellow); }
+			{ g.setColour(Colours::greenyellow); }
 			else g.setColour(Colour(0xff001F36));
 			g.fillRect((Rectangle<int>)*cells[i][j]);
 		}
@@ -112,7 +112,7 @@ void MainContentComponent::mouseDown(const MouseEvent &event)
 
 void MainContentComponent::mouseDrag (const MouseEvent &event)
 {
-	mouseDragOccuring = true;
+	mouseRespond = true;
 	pointToDraw.setXY(event.position.x, event.position.y);
 	repaint();
 	

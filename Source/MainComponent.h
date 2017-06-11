@@ -34,7 +34,6 @@ private:
 	GOLCell *cells[80][80];
 	bool firstRun = true;
 	bool mouseRespond = false;
-	bool mouseDragOccuring = false;
 	Point<float> pointToDraw;
 
 	//==============================================================================

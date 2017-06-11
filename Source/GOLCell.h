@@ -22,7 +22,6 @@ private:
 	GOLCell *neighbor6;
 	GOLCell *neighbor7;
 
-	bool alive = false;
 
 	void countNeighbors();
 
@@ -33,6 +32,8 @@ public:
 	void setNeighbors(GOLCell *cells[8]);
 	void setAlive();
 	bool isAlive();
+	bool alive = false;
+
 };
 
 
