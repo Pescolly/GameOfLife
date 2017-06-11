@@ -9,6 +9,8 @@
 #ifndef MAINCOMPONENT_H_INCLUDED
 #define MAINCOMPONENT_H_INCLUDED
 
+#define RASTER_SIZE 160
+
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "GOLCell.h"
 
@@ -31,7 +33,7 @@ public:
 
 private:
 	void timerCallback() override;
-	GOLCell *cells[80][80];
+	GOLCell *cells[RASTER_SIZE][RASTER_SIZE];
 	bool firstRun = true;
 	bool mouseRespond = false;
 	Point<float> pointToDraw;

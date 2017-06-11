@@ -16,17 +16,17 @@ MainContentComponent::MainContentComponent()
 	this->startTimer(300);
 
 	//setup cells
-	for (int i = 0; i < 80; i++)
+	for (int i = 0; i < RASTER_SIZE; i++)
 	{
-		for (int j = 0; j < 80; j++)
+		for (int j = 0; j < RASTER_SIZE; j++)
 		{
-			cells[i][j] = new GOLCell(i*10,j*10,10,10);
+			cells[i][j] = new GOLCell(i*5,j*5,5,5);
 		}
 	}
 
-	for (int i = 0; i < 80; i++)
+	for (int i = 0; i < RASTER_SIZE; i++)
 	{
-		for (int j = 0; j < 80; j++)
+		for (int j = 0; j < RASTER_SIZE; j++)
 		{
 			//create temp array to pass into neighbor assignment
 			//cells go clockwise around current
@@ -71,11 +71,11 @@ void MainContentComponent::paint (Graphics& g)
 	if (mouseRespond)
 	{
 		g.setColour(Colours::greenyellow);
-		GOLCell *cell = cells[(int)pointToDraw.x/10][(int)pointToDraw.y/10];
+		GOLCell *cell = cells[(int)pointToDraw.x/5][(int)pointToDraw.y/5];
 		cell->setAlive();
-		for (int i = 0; i < 80; i++)
+		for (int i = 0; i < RASTER_SIZE; i++)
 		{
-			for (int j = 0; j < 80; j++)
+			for (int j = 0; j < RASTER_SIZE; j++)
 			{
 				if (cells[i][j]->alive)
 				{ g.setColour(Colours::greenyellow); }
@@ -90,9 +90,9 @@ void MainContentComponent::paint (Graphics& g)
 
 	// run game
 	g.fillAll (Colour(0xff001F36));
-	for (int i = 0; i < 80; i++)
+	for (int i = 0; i < RASTER_SIZE; i++)
 	{
-		for (int j = 0; j < 80; j++)
+		for (int j = 0; j < RASTER_SIZE; j++)
 		{
 			if (cells[i][j]->isAlive())
 			{ g.setColour(Colours::greenyellow); }
